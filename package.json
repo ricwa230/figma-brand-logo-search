@@ -1,0 +1,22 @@
+{
+  "name": "brand-logos",
+  "version": "1.0.0",
+  "description": "Inject logos in Figma using Clearbit Logo API",
+  "main": "code.js",
+  "author": "Richard Wålander <richard.walander@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx webpack --mode=development --watch"
+  },
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
+    "html-webpack-plugin": "^4.0.4",
+    "style-loader": "^1.1.3",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "url-loader": "^4.0.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
