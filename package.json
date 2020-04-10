@@ -6,7 +6,8 @@
   "author": "Richard Wålander <richard.walander@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx webpack --mode=development --watch"
+    "dev": "npx webpack --mode=development --watch",
+    "build": "npx webpack --mode=production"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
