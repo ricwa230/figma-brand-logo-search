@@ -1,0 +1,31 @@
+<list-item>
+<style>
+.logo {
+  height: 50px;
+  width: 50px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #eee;
+}
+.card {
+  cursor: pointer;
+}
+.card:hover {
+  border: solid 1px var(--input-focus-color);
+}
+</style>
+<div class="card fluid">
+  <div class="section row">
+  {console.log(props)}
+    <div class="col-sm-2">
+      <div class="logo rounded" style={`background-image: url(${props.logo})`}></div>
+    </div>
+    <div class="col-sm-10">
+      <strong>{props.name}</strong><br/>
+      <span>{props.domain}</span>
+    </div>
+  </div>
+</div>
+
+</list-item>

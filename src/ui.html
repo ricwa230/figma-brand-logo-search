@@ -1,3 +1,5 @@
+<link rel="stylesheet"
+  href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
 <style>
   :root {
@@ -8,6 +10,7 @@
     --button-hover-back-color: #fff;
     --button-hover-fore-color: #333;
     --button-hover-border-color: #333;
+    --input-focus-color: #18A0FB;
   }
 
   button.primary {
@@ -20,91 +23,4 @@
   }
 </style>
 
-<app-tag />
-
-<template id="test-tag">
-  <test-tag>
-    <p>test</p>
-  </test-tag>
-</template>
-
-<template id="app-tag">
-  <app-tag>
-    <h2>Logo Creator</h2>
-    <p>Enter domain: <input id="domain" onkeyup={search} placeholder="example.com"></p>
-    <ul>
-      <li each="{ r in state.result}" key="{r.domain}">{r.name}</li>
-    </ul>
-    <button class="small primary" id="generate" onclick={generate}>Generate</button>
-    <button class="small" id="cancel">Cancel</button>
-    <script>
-      export default {
-        users: [
-          { name: 'Gian', id: 0 },
-          { name: 'Dan', id: 1 },
-          { name: 'Teo', id: 2 }
-        ],
-        onMounted() {
-          this.update({
-            result: []
-          });
-        },
-        search(e) {
-          let val = e.target.value;
-          if (val !== '') {
-            let req = new XMLHttpRequest();
-            req.open("GET", `https://autocomplete.clearbit.com/v1/companies/suggest?query=${val}`, true);
-            // req.responseType = "text";
-
-            req.onload = (ev) => {
-              let text = req.responseText; // Note: not req.responseText
-              let json = JSON.parse(text);
-              this.update({
-                result: json
-              });
-            };
-
-            req.send(null);
-          } else {
-            this.update({
-              result: []
-            })
-          }
-        },
-        generate() {
-          let domain = this.$('#domain').value;
-          // debugger
-          if (domain !== '') {
-            let req = new XMLHttpRequest();
-            req.open("GET", `https://logo.clearbit.com/${domain}`, true);
-            req.responseType = "arraybuffer";
-
-            req.onload = function (oEvent) {
-              let arrayBuffer = req.response; // Note: not req.responseText
-              if (arrayBuffer) {
-                let imageArray = new Uint8Array(arrayBuffer);
-                parent.postMessage({ pluginMessage: { type: 'create-logo', imageArray } }, '*')
-              }
-            };
-
-            req.send(null);
-          }
-        },
-        cancel() {
-          parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
-        }
-      }
-    </script>
-  </app-tag>
-</template>
-
-<script src="https://unpkg.com/riot@4.11.1/riot+compiler.min.js"></script>
-<script>
-  document.querySelectorAll('template').forEach(t => {
-    console.log(t.id);
-    const tagString = t.innerHTML;
-    const { code } = riot.compileFromString(tagString);
-    riot.inject(code, t.id, `./${t.id}.html`);
-  })
-  riot.mount('app-tag');
-</script>
+<div id="root" />
