@@ -14,18 +14,22 @@ function clone(val) {
   return JSON.parse(JSON.stringify(val))
 }
 
-figma.ui.onmessage = msg => {
+figma.ui.onmessage = (msg) => {
   switch (msg.type) {
     case 'create-logo':
       const nodes = figma.currentPage.selection
-      nodes.forEach(node => {
-        let image = figma.createImage(msg.imageArray)
-        if (node.type !== 'SLICE' && node.type !== 'GROUP') {
-          let fills = clone(node.fills)
-          fills.push({ type: 'IMAGE', scaleMode: 'FILL', imageHash: image.hash })
-          node.fills = fills
-        }
-      })
+      if (nodes.length > 0) {
+        nodes.forEach((node) => {
+          let image = figma.createImage(msg.imageArray)
+          if (node.type !== 'SLICE' && node.type !== 'GROUP') {
+            let fills = clone(node.fills)
+            fills.push({ type: 'IMAGE', scaleMode: 'FILL', imageHash: image.hash })
+            node.fills = fills
+          }
+        })
+      } else {
+        figma.notify('Please select a layer')
+      }
       break
 
     case 'error':
